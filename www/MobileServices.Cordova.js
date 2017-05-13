@@ -6707,6 +6707,8 @@ var types = module.exports = {
       if ((_.isNumber(value)) || (_.isBoolean(value))) {
         return value.toString();
       } else if (_.isString(value)) {
+            if (value.indexOf('datetime') !== -1)
+              return value;
         value = value.replace(/'/g, "''");
         if ((this.encodeForUri != null) && this.encodeForUri === true) {
           value = encodeURIComponent(value);
@@ -6728,7 +6730,7 @@ var types = module.exports = {
           msec = String(value.getMilliseconds() + 1000).substring(1);
           return time + "." + msec + "Z";
         });
-        return "datetime'" + text + "'";
+        return "datetimeoffset'" + text + "'";
       } else if (!value) {
         return "null";
       } else {
